@@ -120,6 +120,14 @@ class ajax extends AWS_CONTROLLER
 
 		TPL::assign('list', $data);
 
+		//cst fix start
+		$focus_arr = Array();
+		foreach ($data AS $key => $val) {
+			$focus_arr[$val['question_info']['question_id']] = $this->model('question')->has_focus_question($val['question_info']['question_id'], $this->user_id);
+		}
+		TPL::assign('cst_focus_arr', $focus_arr);
+		//cst fix end
+
 		if (is_mobile())
 		{
 			TPL::output('m/ajax/index_actions');

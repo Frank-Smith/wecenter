@@ -114,6 +114,10 @@
 			<span class="operate">
 				<a class="aw-add-comment text-color-999" href="javascript:;" data-id="<?php echo $val['answer_info']['answer_id']; ?>" data-type="answer"><i class="icon icon-comment"></i><?php echo $val['answer_info']['comment_count']; ?></a>
 			</span>
+			<span class="operate">
+                <a href="javascript:;" onclick="AWS.User.follow($(this), 'question', <?php echo $val['question_info']['question_id']; ?>);" class="follow btn<?php if ($this->cst_focus_arr[$val['question_info']['question_id']]) { ?> active<?php } ?>"><span><?php if ($this->cst_focus_arr[$val['question_info']['question_id']]) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></span></a>
+			</span>
+
 			<span class="pull-right more-operate">
 				<?php if ($this->user_id != $val['uid']) { ?>
 				<a href="javascript:;"<?php if (!$val['answer_info']['user_rated_thanks']) { ?> onclick="AWS.User.answer_user_rate($(this), 'thanks', <?php echo $val['answer_info']['answer_id']; ?>);"<?php } ?> class="aw-icon-thank-tips text-color-999" data-original-title="<?php _e('感谢热心的回复者'); ?>" data-toggle="tooltip" title="" data-placement="bottom"><i class="icon icon-thank"></i><?php if ($val['answer_info']['user_rated_thanks']) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a>
