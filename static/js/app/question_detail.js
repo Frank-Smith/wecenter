@@ -5,6 +5,15 @@ var UNINTERESTED_COUNT;
 var EDITOR;
 var EDITOR_CALLBACK;
 
+//fix:cst
+function save_draft_per_2min(){
+	if (arguments[0].getData().length) {
+		$.post(G_BASE_URL + '/account/ajax/save_draft/item_id-' + QUESTION_ID + '__type-' + ANSWER_TYPE, 'message=' + arguments[0].getData(), function (result) {
+			$('#answer_content_message').html(result.err + ' <a href="#" onclick="$(\'textarea#advanced_editor\').attr(\'value\', \'\'); AWS.User.delete_draft(QUESTION_ID, ANSWER_TYPE); $(this).parent().html(\' \'); return false;">' + _t('删除草稿') + '</a>');
+		}, 'json');
+	}
+}
+
 $(function()
 {
     //问题页添加评论
@@ -33,6 +42,9 @@ $(function()
 						}, 'json');
 					}
 				}
+
+				setInterval("save_draft_per_2min(EDITOR)",60000);
+				// setInterval(save_draft_per_2min(EDITOR),5000); //comment:cst
 
 				// 自动保存草稿
 				EDITOR.on( 'blur', EDITOR_CALLBACK);
