@@ -1,0 +1,12 @@
+<?php if ($this->approval_list) { ?>
+<?php foreach ($this->approval_list AS $key => $val) { ?>
+<div class="aw-item">
+    <h4>
+        <?php if('question' == $val['type']) {echo '问题：'.$val['data']['question_content'];} else if('answer' == $val['type']) {echo '回答：'.$val['data']['answer_content'];} ?>
+    </h4>
+    <div class="meta">
+        <?php echo date_friendly($val['time']); ?>
+    </div>
+</div>
+<?php } ?>
+<?php } ?>

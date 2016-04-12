@@ -78,6 +78,10 @@ $(function()
 			case '#focus_topic__focus':
 				var request_url = G_BASE_URL + '/topic/ajax/focus_topics_list/page-' + $(this).attr('data-page');
 			break;
+			
+			case '#review_list__review':
+				var request_url = G_BASE_URL + '/home/ajax/review/page-' + $(this).attr('data-page');
+			break;
 		}
 
 		$(this).addClass('loading');

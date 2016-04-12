@@ -108,9 +108,14 @@ class ajax extends AWS_CONTROLLER
 
 			$data = $this->model('project')->get_project_info_by_ids($project_ids, (intval($_GET['page']) * $this->per_page) . ", {$this->per_page}");
 		}
-		else
+        else
 		{
  			$data = $this->model('actions')->home_activity($this->user_id, (intval($_GET['page']) * $this->per_page) . ", {$this->per_page}");
+			$focus_arr = Array();
+			foreach ($data AS $key => $val) {
+				$focus_arr[$val['question_info']['question_id']] = $this->model('question')->has_focus_question($val['question_info']['question_id'], $this->user_id);
+			}
+			TPL::assign('cst_focus_arr', $focus_arr);
 		}
 
 		if (!is_array($data))
@@ -119,14 +124,6 @@ class ajax extends AWS_CONTROLLER
 		}
 
 		TPL::assign('list', $data);
-
-		//cst fix start
-		$focus_arr = Array();
-		foreach ($data AS $key => $val) {
-			$focus_arr[$val['question_info']['question_id']] = $this->model('question')->has_focus_question($val['question_info']['question_id'], $this->user_id);
-		}
-		TPL::assign('cst_focus_arr', $focus_arr);
-		//cst fix end
 
 		if (is_mobile())
 		{
@@ -213,6 +210,27 @@ class ajax extends AWS_CONTROLLER
 		else
 		{
 			TPL::output('home/ajax/invite');
+		}
+	}
+
+	public function review_action()
+	{
+		if ($approval_list = $this->model('approval')->get_approval_list($this->user_id, 'answer', $_GET['page'], $this->per_page)) {
+
+        } 
+		TPL::assign('approval_list', $approval_list);
+//        if ($approval_list_count = $this->model('approval')->get_approval_list_count($this->user_id)) {
+//
+//        } 
+//		TPL::assign('approval_list_count', $approval_list_count);
+		
+		if (is_mobile())
+		{
+			TPL::output('m/ajax/review');
+		}
+		else
+		{
+			TPL::output('home/ajax/review');
 		}
 	}
 }
