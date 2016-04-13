@@ -215,15 +215,15 @@ class ajax extends AWS_CONTROLLER
 
 	public function review_action()
 	{
-		if ($approval_list = $this->model('approval')->get_approval_list($this->user_id, 'answer', $_GET['page'], $this->per_page)) {
-
-        } 
+		if ($approval_list = $this->model('approval')->get_approval_list($this->user_id, intval($_GET['page']) * $this->per_page .', '. $this->per_page)) {
+            
+        }
 		TPL::assign('approval_list', $approval_list);
 //        if ($approval_list_count = $this->model('approval')->get_approval_list_count($this->user_id)) {
 //
-//        } 
+//        }
 //		TPL::assign('approval_list_count', $approval_list_count);
-		
+
 		if (is_mobile())
 		{
 			TPL::output('m/ajax/review');

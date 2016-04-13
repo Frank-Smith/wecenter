@@ -13,9 +13,9 @@ if (!defined('IN_ANWSION'))
 
 class approval_class extends AWS_MODEL
 {
-    public function get_approval_list($uid, $page, $per_page)
+    public function get_approval_list($uid, $page = null)
     {
-        if ($approval_list = $this->fetch_page('approval', "`uid` = '" . intval($uid) . "'", 'time ASC', $page, $per_page))
+        if ($approval_list = $this->fetch_all('approval', "uid = " . intval($uid), 'time ASC', $page))
         {
             foreach ($approval_list AS $key => $val)
             {
