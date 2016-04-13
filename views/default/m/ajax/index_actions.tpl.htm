@@ -35,7 +35,10 @@
 		</a>
 		<a class="answer_vote disagree<?php if ($val['answer_info']['agree_status'] == -1) { ?> active<?php } ?>" <?php if ($this->user_id != $val['answer_info']['uid']) { ?>onclick="AWS.User.disagree_vote($(this), <?php echo $val['answer_info']['answer_id']; ?>)"<?php } ?>>
 			<i class="icon icon-disagree"></i>
-		</a> 
+		</a>
+		<a href="javascript:;" onclick="AWS.User.follow($(this), 'question', <?php echo $val['question_info']['question_id']; ?>);" class="follow<?php if ($this->cst_focus_arr[$val['question_info']['question_id']]) { ?> active<?php } ?>">
+			<?php if ($this->cst_focus_arr[$val['question_info']['question_id']]) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?>
+		</a>
 		<?php } else if (isset($val['article_info']['comments'])) { ?>
 			<a href="m/article/<?php echo $val['article_info']['id']; ?>"><i class="icon icon-reply"></i> <?php if ($val['article_info']['comments'] == 0) { ?> <?php _e('添加回复'); ?> <?php } else { ?><?php echo $val['article_info']['comments']; ?><?php } ?></a>
 
